@@ -1,0 +1,20 @@
+{
+  "name": "telegram-tdlib-worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "ts-node-dev --respawn src/index.ts",
+    "start": "node dist/index.js",
+    "build": "tsc -p ."
+  },
+  "dependencies": {
+    "pg": "^8.11.3",
+    "tdl": "^8.0.0",
+    "tdl-tdlib-addon": "^1.2.2"
+  },
+  "devDependencies": {
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.5.4"
+  }
+}

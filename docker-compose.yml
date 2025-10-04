@@ -1,0 +1,46 @@
+services:
+  web:
+    build:
+      context: ./packages/web
+      dockerfile: Dockerfile
+    env_file: .env
+    depends_on:
+      - api
+    ports:
+      - "5173:80"
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-telegram}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  api:
+    build:
+      context: ./packages/api
+      dockerfile: Dockerfile
+    env_file: .env
+    depends_on:
+      - postgres
+    ports:
+      - "3000:3000"
+    command: ["npm","run","start"]
+
+  worker:
+    build:
+      context: ./packages/worker
+      dockerfile: Dockerfile
+    env_file: .env
+    depends_on:
+      - postgres
+    volumes:
+      - tdlibdata:/data/tdlib
+    command: ["npm","run","start"]
+
+volumes:
+  pgdata:
+  tdlibdata:
