@@ -4,8 +4,8 @@ export type SearchParams = {
   fromUserId?: string;
   dateFrom?: string;
   dateTo?: string;
-  has?: 'link' | 'media' | undefined;
+  has?: 'link' | 'media';
   mediaType?: string;
-  limit?: number;
-  offset?: number;
+  limit: number;
+  offset: number;
 };
